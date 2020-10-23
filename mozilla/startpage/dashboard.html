@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏚</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animate.min.css">
+    <!-- <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/> -->
+</head>
+<body>
+    <div id="search">
+        <input id="search-field" type="text" name="search-field"/>
+    </div>
+    <div class="container">
+        <div class="animated fadeIn" id="clock"></div>
+
+        <div id="weather-container">
+            <span class="fade-in-weather" id="weather">Loading ... </span>
+            <img class="fade-in-icon" id="weather-icon" src="">
+        </div>
+        <!--
+        TODO: add bookmarks for wikipedia
+        -->
+        <div class="bookmark-container animated fadeInUp slow">
+            <div class="bookmark-set">
+                <div class="bookmark-title">Reference</div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs" target="_blank">Terraform</a>
+                    <a class="bookmark" href="https://golang.org/doc/" target="_blank">Go</a>
+                    <a class="bookmark" href="https://docs.ansible.com/ansible/latest/user_guide/index.html" target="_blank">Ansible</a>
+                    <a class="bookmark" href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/" target="_blank">Kubernetes</a>
+                </div>
+            </div>
+            <div class="bookmark-set">
+                <div class="bookmark-title">Dev</div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="https://leetcode.com" target="_blank">AWS Console</a>
+                    <a class="bookmark" href="https://github.com/" target="_blank">Github</a>
+                    <a class="bookmark" href="https://hub.docker.com" target="_blank">Docker Registry</a>
+                    <a class="bookmark" href="https://hackerrank.com" target="_blank">HackerRank</a>
+                </div>
+            </div>
+            <div class="bookmark-set">
+                <div class="bookmark-title"> Media </div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="https://twitch.tv" target="_blank">Twitch</a>
+                    <a class="bookmark" href="https://youtube.com" target="_blank">Youtube</a>
+                    <a class="bookmark" href="https://netflix.com" target="_blank">Netflix</a>
+                    <a class="bookmark" href="https://reddit.com" target="_blank">Reddit</a>
+                </div>
+            </div>
+            <div class="bookmark-set">
+                <div class="bookmark-title">Other</div>
+                <div class="bookmark-inner-container">
+                    <a class="bookmark" href="https://www.bbt.com" target="_blank">Bank</a>
+                    <a class="bookmark" href=" https://www.mohela.com" target="_blank">Loans</a>
+                    <a class="bookmark" href="https://amazon.com" target="_blank">Amazon</a>
+                    <a class="bookmark" href="https://aur.archlinux.org" target="_blank">AUR</a>
+                </div>
+            </div>
+        </div>
+        <svg viewBox="0 0 1920 250" xmlns="http://www.w3.org/2000/svg" id="waveform-collage">
+            <path id="waveform-1"
+                  d="M1920 250H0V0s126.707 78.536 349.975 80.05c177.852 1.203 362.805-63.874 553.803-63.874 290.517 0 383.458 57.712 603.992 61.408 220.527 3.696 278.059-61.408 412.23-17.239">
+            </path>
+            <path id="waveform-2"
+                  d="M1920 144s-467.917 116.857-1027.243-17.294C369.986 1.322 0 45.578 0 45.578V250h1920V144z">
+            </path>
+            <path id="waveform-3"
+                  d="M0 195.553s208.547-75.581 701.325-20.768c376.707 41.908 520.834-67.962 722.545-67.962 222.926 0 311.553 83.523 496.129 86.394V250H0v-54.447z"</path>
+        </svg>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

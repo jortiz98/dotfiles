@@ -1,0 +1,264 @@
+.tabbrowser-tab:not(:hover) .tab-close-button {
+  display: none;
+}
+.tabbrowser-tab:not([pinned]):hover .tab-close-button {
+  display: block !important;
+}
+
+.tabbrowser-tab:not([pinned]):hover .tab-icon-image {
+  display: none !important;
+}
+
+.tabbrowser-tab:hover .tab-throbber,
+.tabbrowser-tab:hover .tab-icon-image,
+.tabbrowser-tab:hover .tab-sharing-icon-overlay,
+.tabbrowser-tab:hover .tab-icon-overlay,
+.tabbrowser-tab:hover .tab-label-container,
+.tabbrowser-tab:hover .tab-icon-sound {
+  -moz-box-ordinal-group: 2 !important;
+}
+
+.tabbrowser-tab .tab-close-button {
+  margin-left: -2px !important;
+  margin-right: 2px !important;
+}
+
+/* This removes the tab separators */
+.tabbrowser-tab::before,
+.tabbrowser-tab::after {
+  display: none !important;
+}
+
+.tab-background[selected='true'] {
+  color: #eceff4 !important;
+}
+
+.tabbrowser-tab {
+  transition: color 0.25s !important;
+  text-align: center !important;
+  /*display: inherit;*/
+  justify-content: center;
+  align-items: center;
+}
+
+.tabbrowser-tab[selected='true'],
+.tab-label-container[selected='true'] {
+  color: #88c0d0 !important;
+  /* background-color: var(--color3) !important; */
+  /* background-image: linear-gradient(var(--color3), var(--color3)) !important; */
+}
+
+/* hide navbar */
+#nav-bar:not([customizing]) {
+  visibility: visible;
+  margin-top: -42px;
+  transition-delay: 1s;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  transition: visibility, ease 0.5s, margin-top, ease 0.5s, opacity, ease 0.5s !important;
+}
+
+/*
+keep visible when urlbar is focused
+navbar is hovered
+or menubar/customization is open
+*/
+
+:root:not([customizing]) :hover > #nav-bar,
+#nav-bar:focus-within,
+#urlbar[focused='true'],
+#identity-box[open='true'],
+#navigator-toolbox:hover > #nav-bar:not([customizing]),
+#toolbar-menubar:not([inactive='true']) ~ #nav-bar:not([customizing]) {
+  visibility: visible;
+  margin-top: 0;
+  filter: alpha(opacity=100);
+  opacity: 100;
+}
+
+#nav-bar .toolbarbutton-1[open='true'] {
+  visibility: visible;
+  margin-top: 0px;
+  opacity: 100;
+}
+
+/* hide scrollbar  */
+
+:-moz-any(#content, #appcontent) browser {
+  margin-right: -17px !important;
+  overflow-y: scroll;
+  margin-bottom: 0px !important;
+  overflow-x: scroll;
+}
+
+#TabsToolbar:hover {
+  background: transparent;
+}
+
+#TabsToolbar. {
+  padding-bottom: 30px;
+}
+
+.tab-line {
+  display: none;
+}
+
+tab:not(:active) .tab-background {
+  transition: background-color var(--animation-speed) !important;
+}
+/* deixar a aba ativa em destaque e o resto desfocado */
+:root:not([customizing]) :hover > .tabbrowser-tab:not(:hover) {
+  filter: blur(0.6px) brightness(88%);
+  transition: blur, ease 0.3s !important;
+}
+
+:root:not([customizing]) :not(:hover) > .tabbrowser-tab {
+  filter: blur(0px) brightness(100%) !important;
+  transition: blur, ease 0.2s !important;
+}
+
+/* sumir com o nome da aba depois de um tempo */
+
+/* #tabbrowser-tabs .tab-label-container[customizing] {
+  color: transparent;
+  transition: ease 0.5s;
+  transition-delay: 3s;
+} */
+
+:root:not([customizing]) :hover > #tabbrowser-tabs,
+:root:not([customizing]) #tabbrowser-tabs:focus-within,
+#urlbar[focused='true'],
+#identity-box[open='true'],
+#navigator-toolbox:hover > #tabbrowser-tabs:not([customizing]),
+#toolbar-menubar:not([inactive='true']) ~ #tabbrowser-tabs:not([customizing]) {
+  color: #d8dee9 !important;
+  /* opacity: 0.25;
+  transition: linear 0s;
+  transition-delay: 3s; */
+}
+
+:root[uidensity='compact'] {
+  --tab-min-height: 32px !important;
+}
+
+tab:not([selected]):hover .tab-background {
+  background-color: #3b4252 !important;
+  transition: background-color ease 100ms !important
+}
+
+.tab-close-button {
+  list-style-image: url('active_close.png');
+  transition: list-style-image var(--animation-speed) ease-out !important;
+}
+.tab-close-button:hover {
+  list-style-image: url('mouseover_close.png');
+}
+
+/* Removal of black bottom 1px line */
+#navigator-toolbox::after {
+  display: none !important;
+}
+
+#urlbar {
+  border-radius: 5px !important;
+  height: 36px;
+}
+
+.urlbar-input-box {
+  padding: 5px 5px !important;
+  background: rgba(59, 66, 82, 0.6);
+  border-radius: 1.5px !important;
+}
+
+.urlbar-input-box>.urlbar-input {
+  color: #eceff4;
+}
+
+/*
+ * Originally from:
+ * http://forums.mozillazine.org/viewtopic.php?p=14404121#p14404121
+ */
+
+#urlbar {
+  position: relative;
+  z-index: 1;
+  border-radius: 6.8px !important;
+}
+
+#urlbar #urlbar-input {
+text-align: center !important;
+}
+
+#identity-box:after {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-color: #2e3440;
+  opacity: 0.5;
+}
+
+/* There is also grantedPermissions, but irrelevant. */
+
+/* about:about */
+#urlbar[pageproxystate='valid'] #identity-box.unknownIdentity:after {
+  background: #bf616a; /* Firefox Red 50 */
+}
+
+/* about:config */
+#urlbar[pageproxystate='valid'] #identity-box.chromeUI:after {
+  background: #5e81ac; /* Firefox Blue 50 */
+}
+
+/* uBlock Origin Dashboard */
+#urlbar[pageproxystate='valid'] #identity-box.extensionPage:after {
+  background: #81a1c1; /* Firefox Blue 40 */
+}
+
+/* https://www.github.com/ */
+#urlbar[pageproxystate='valid'] #identity-box.verifiedIdentity:after{
+  background: #a3be8c; /* Firefox Green 70 */
+}
+
+/* https://www.google.com/ */
+#urlbar[pageproxystate='valid'] #identity-box.verifiedDomain:after{
+  background: #a3be8c; /* Firefox Green 60 */
+}
+
+/* https://mixed-script.badssl.com/ */
+#urlbar[pageproxystate='valid'] #identity-box.mixedActiveBlocked:after {
+  background: #a3be8c; /* Firefox Green 50 */
+}
+
+/* https://mixed.badssl.com/ */
+#urlbar[pageproxystate='valid'] #identity-box.mixedDisplayContent:after {
+  background: #d08770; /* Firefox Yellow 60 */
+}
+
+/* https://very.badssl.com/ */
+#urlbar[pageproxystate='valid'] #identity-box.mixedDisplayContentLoadedActiveBlocked:after {
+  background: #d08770; /* Firefox Yellow 60 */
+}
+
+/* https://self-signed.badssl.com/ but add certificate exception */
+#urlbar[pageproxystate='valid'] #identity-box.certUserOverridden:after {
+  background: #ebcb8b; /* Firefox Yellow 50 */
+}
+
+/* Don't know an example for this */
+#urlbar[pageproxystate='valid'] #identity-box.weakCipher:after {
+  background: #ebcb8b; /* Firefox Yellow 70 */
+}
+
+/* https://mixed-script.badssl.com/ but disable protection */
+#urlbar[pageproxystate='valid'] #identity-box.mixedActiveContent:after {
+  background: #bf616a;  /* Firefox Red 60 */
+}
+
+/* http://http-login.badssl.com/ */
+#urlbar[pageproxystate='valid'] #identity-box.insecureLoginForms:after {
+  background: #bf616a;  /* Firefox Red 70 */
