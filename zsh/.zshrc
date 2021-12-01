@@ -1,21 +1,11 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
 export ZSH="/home/jortiz/.oh-my-zsh"
+export GOROOT=/usr/lib/go
+export GOPATH="$HOME/documents/workspaces/golang"
+export AWSCOMPLETER="/usr/local/aws-cli/v2/2.2.21/bin/aws_completer"
+export PATH="$PATH:$GOROOT/bin:$GOPATH:$GOPATH/bin:$AWSCOMPLETER"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
-
-#-----------------------------
-# Source 
-#-----------------------------
-
-#  PROFILE  
-
+export MOZ_WEBRENDER=1
+#export KUBE_PS1_SYMBOL_ENABLE=false
 
 [[ -f "$HOME/.zprofile" ]] \
     && source "$HOME/.zprofile"
@@ -26,107 +16,46 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line if pasting URLs and other text is messed up. DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git
-    archlinux
     extract
-    zsh-autosuggestions
-    zsh-syntax-highlighting
     z
 )
 
-source $ZSH/oh-my-zsh.sh
-#source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-#source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-#source /usr/share/doc/pkgfile/command-not-found.zsh
+DISABLE_MAGIC_FUNCTIONS="true"
+CASE_SENSITIVE="false"
+HYPHEN_INSENSITIVE="true"
 
-#-----------------------------
+
+# zsh plugins
+source $ZSH/oh-my-zsh.sh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# direnv
+eval "$(direnv hook zsh)"
+
+# gcloud completion
+source /opt/google-cloud-sdk/completion.zsh.inc
+source /opt/google-cloud-sdk/path.zsh.inc
+
 # Dircolors
-#-----------------------------
 LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32:';
 export LS_COLORS
 
-# User configuration
+# clean
+clean() {  
+	comm -23 <(pacman -Qqd | sort -u) <(pacman -Qqe | xargs -n1 pactree -u | sort -u) | comm -23 - <(pacman -Qqttd | sort -u)
+	sudo pacman -Qtdq | sudo pacman -Rns - 
+}
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# flush dns
+alias flush="sudo systemd-resolve --flush-caches"
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+# top
+alias top="bpytop"
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# vscodium -> code
+alias code="vscodium"
 
 # pacman 
 alias pac="sudo pacman -S"
@@ -134,23 +63,31 @@ alias puc="sudo pacman -Syu"
 
 # ls
 alias ls="ls --color -F"
-alias ll="ls --color -lah"
+alias ll="ls --color -lh"
 
 # yay
 alias yac="yay -S"
 alias yuc="yay -Syu"
 
 # scrot
-alias shot="scrot ~/media/screenshots/%Y-%m-%d-%T-screenshot.png"
+alias screenshot="scrot ~/media/photos/%Y-%m-%d-%T-screenshot.png"
 
-# anaconda
-alias startconda="source /opt/anaconda/bin/activate"
-alias stopconda="source /opt/anaconda/bin/deactivate"
+# Change Brightness (lenovo t14 exclusive)
+alias brightness="sudo vim /sys/class/backlight/amdgpu_bl0/brightness"
+
+# Wifi Setup
+alias wifi="nmtui"
+
+# venv
+alias ve="python -m venv .venv"
+alias va="source .venv/bin/activate"
 
 # Autocompletion
-autoload -Uz compinit
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
 compinit
 setopt COMPLETE_ALIASES
+complete -C '/usr/local/aws-cli/v2/2.2.21/bin/aws_completer' aws
 
 # Setup Keybindings
 typeset -g -A key
@@ -190,14 +127,14 @@ key[Control-Right]="${terminfo[kRIT5]}"
 # History stuff
 #------------------------------
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=100000
+SAVEHIST=100000
 
 #------------------------------
 # Variables
 #------------------------------
 export BROWSER="firefox"
-export EDITOR="emacs"
+export EDITOR="vim"
 
 #------------------------------
 # Window title
@@ -248,24 +185,41 @@ colors
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git hg
 zstyle ':vcs_info:*' check-for-changes true
+#zstyle ':vcs_info:git*' formats "%{${fg[cyan]}%}[%{${fg[green]}%}%s%{${fg[cyan]}%}][%{${fg[blue]}%}%r%%{${fg[cyan]}%}][%{${fg[blue]}%}%b%{${fg[yellow]}%}%m%u%c%{${fg[cyan]}%}]%{$reset_color%}"
 zstyle ':vcs_info:git*' formats "%{${fg[cyan]}%}[%{${fg[green]}%}%s%{${fg[cyan]}%}][%{${fg[blue]}%}%r/%S%%{${fg[cyan]}%}][%{${fg[blue]}%}%b%{${fg[yellow]}%}%m%u%c%{${fg[cyan]}%}]%{$reset_color%}"
 
 setprompt() {
   setopt prompt_subst
 
+
+  # kube-ps1 
+  # source '/opt/kube-ps1/kube-ps1.sh'
+  # PROMPT='$(kube_ps1)'$PROMPT
+
+  #function prompt_callback {
+  #  if [ `jobs | wc -l` -ne 0 ]; then
+  #    echo -n " $(kube_ps1)"
+  #  fi
+  #}
+
+  if [ -f "$HOME/.oh-my-zsh/custom/zsh-git-prompt/zshrc.sh" ]; then
+      __GIT_PROMPT_DIR="$HOME/.oh-my-zsh/custom/zsh-git-prompt"
+      source "$HOME/.oh-my-zsh/custom/zsh-git-prompt/zshrc.sh"
+  fi
+
   if [[ -n "$SSH_CLIENT"  ||  -n "$SSH2_CLIENT" ]]; then 
     p_host='%F{yellow}%M%f'
   else
-    p_host='%F{green}%M%f'
+    P_Host='%F{green}%M%f'
   fi
 
   PS1=${(j::Q)${(Z:Cn:):-$'
     %F{cyan}[%f
     %(!.%F{red}%n%f.%F{green}%n%f)
     %F{cyan}@%f
-    ${p_host}
+    %F{yellow}%M%f
     %F{cyan}][%f
-    %F{blue}%~%f
+    %F{blue}%3~%f
     %F{cyan}]%f
     %(!.%F{red}%#%f.%F{green}%#%f)
     " "
@@ -275,6 +229,12 @@ setprompt() {
   RPROMPT=$'${vcs_info_msg_0_}'
 }
 setprompt
+
+#set_beam() {
+#	sudo rm /usr/local/bin/beam
+#	sudo ln -s $1 /usr/local/bin/beam
+#	sudo chown jortiz:jortiz /usr/local/bin/beam
+#}
 
 #- buggy
 zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
@@ -292,3 +252,7 @@ zstyle ':completion:*:kill:*'   force-list always
 zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*'   force-list always
 
+typeset -U PATH
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform

@@ -12,29 +12,92 @@ URxvt.keysym.Control-Down: \033[1;5B
 URxvt.keysym.Control-Right: \033[1;5C
 URxvt.keysym.Control-Left: \033[1;5D
 
-URxvt.perl-ext-common: ...,clipboard,...
-URxvt.keysym.M-Escape: perl:keyboard-select:activate
-URxvt.keysym.M-s: perl:keyboard-select:search
-URxvt.keysym.M-u: perl:url-select:select_next
 URxvt.urlLauncher: firefox
 URxvt.underlineURLs: true
 URxvt.urlButton: 1
 
-URxvt.font: xft:Iosevka:style=Regular:size=12
-URxvt.boldFont: xft:Iosevka:style=Bold:size=12
-URxvt.italicFont: xft:Iosevka:style=Italic:size=12
-URxvt.boldItalicfont: xft:Iosevka:style=Italic:size=12
+URxvt.font: xft:Iosevka:style=Regular:size=10, xft:DejaVu Sans Mono:pixelsize=14
+URxvt.boldFont: xft:Iosevka:style=Bold:size=10, xft:DejaVu Sans Mono:pixelsize=14
+URxvt.letterSpace: 0
 
-! Disable ISO 14755 unicode input so we can use Ctrl-Shift bindings
+xft:Dejavu Sans Mono:pixelsize=12
+
+! copy and paste
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
 URxvt.iso14755:        false
 URxvt.iso14755_52:     false
 
-! Disable Ctrl-Alt-c & Ctrl-Alt-v bindings (optional)
-URxvt.keysym.C-M-c:    builtin-string:
-URxvt.keysym.C-M-v:    builtin-string:
+! font increase/decrease keybindings | tabs
+URxvt.perl-ext-common:  resize-font,tabbed
 
-! Bind Ctrl-Shift-c & Ctrl-Shift-v to copy and paste
-! I dont know why, but I needed to use hex keysym values to get it to work
-URxvt.keysym.C-S-0x43: eval:selection_to_clipboard
-URxvt.keysym.C-S-0x56: eval:paste_clipboard
+! do not scroll with term output
+URxvt*scrollTtyOutput: false
 
+! scroll in relation to buffer
+URxvt*scrollWithBuffer: true
+
+! scroll to the bottom with keypress
+URxvt*scrollTtyKeypress: true
+
+! Tabs Colors
+URxvt.tabbed.tabbar-fg: 6
+URxvt.tabbed.tabbar-bg: 8
+
+URxvt.tabbed.tab-fg: 15
+URxvt.tabbed.tab-bg: 8
+
+! Base16 Nord
+! Scheme: arcticicestudio
+
+#define base00 #2e3440
+#define base01 #3b4252
+#define base02 #434c5e
+#define base03 #4c566a
+#define base04 #d8dee9
+#define base05 #e5e9f0
+#define base06 #eceff4
+#define base07 #8fbcbb
+#define base08 #bf616a
+#define base09 #d08770
+#define base0A #ebcb8b
+#define base0B #a3be8c
+#define base0C #99c0d0
+#define base0D #81a1c1
+#define base0E #b48ead
+#define base0F #5e81ac
+
+*foreground:   base05
+#ifdef background_opacity
+*background:   [background_opacity]base00
+#else
+*background:   base00
+#endif
+*cursorColor:  base05
+
+*color0:       base00
+*color1:       base08
+*color2:       base0B
+*color3:       base0A
+*color4:       base0D
+*color5:       base0E
+*color6:       base0C
+*color7:       base05
+
+*color8:       base03
+*color9:       base08
+*color10:      base0B
+*color11:      base0A
+*color12:      base0D
+*color13:      base0E
+*color14:      base0C
+*color15:      base07
+
+! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
+! use 'shell' template to set these if necessary
+*color16:      base09
+*color17:      base0F
+*color18:      base01
+*color19:      base02
+*color20:      base04
+*color21:      base06
